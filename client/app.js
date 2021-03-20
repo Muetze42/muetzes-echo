@@ -4,7 +4,8 @@ const MySql = require('sync-mysql');
 require('dotenv').config({path: __dirname + '/../.env'})
 
 const args = process.argv.slice(2);
-const botProcess = args[0] ? args[0] : '';
+// const botProcess = args[0] ? args[0] : '';
+const botProcess = args[1] ? args[1] : '';
 
 const botId = botProcess.replace("muetzes_echo_", "");
 
