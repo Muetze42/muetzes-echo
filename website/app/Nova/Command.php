@@ -65,7 +65,11 @@ class Command extends Resource
             Text::make('Command')
                 ->sortable()->rules('required'),
             Textarea::make('Content')
-                ->sortable()->rules('required')->alwaysShow(),
+                ->rules('required')->alwaysShow()->hideFromIndex(),
+            Text::make('Content', function () {
+                return htmlspecialchars($this->content);
+            })
+                ->sortable()->onlyOnIndex()->asHtml(),
             BooleanGroup::make('Rights')->options([
                 'everyone' => __('Everyone'),
                 'mods'     => __('Mods'),

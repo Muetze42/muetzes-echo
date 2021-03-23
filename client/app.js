@@ -52,7 +52,7 @@ function onMessageHandler(target, context, msg, self) {
 
     const message = msg.trim();
     const lowerMsg = message.toLowerCase();
-    if (message.startsWith("µ")) {
+    if (message.startsWith("µ") && context['user-id']==='279904718') {
         let getCommand = lowerMsg.replace("µ", "").split(" ");
         let command = getCommand[0];
         let streamer = target.replace("#", "");
