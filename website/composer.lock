@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f36369ff5e08b138e05ee5067a6721b",
+    "content-hash": "7761c4e59861a7e5001c412adb2717fe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2385,6 +2385,71 @@
                 }
             ],
             "time": "2021-02-24T17:30:44+00:00"
+        },
+        {
+            "name": "nicklaw5/twitch-api-php",
+            "version": "v4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nicklaw5/twitch-api-php.git",
+                "reference": "730b6954b4e8bf6d82fa1c465b260db0eefe1b4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nicklaw5/twitch-api-php/zipball/730b6954b4e8bf6d82fa1c465b260db0eefe1b4b",
+                "reference": "730b6954b4e8bf6d82fa1c465b260db0eefe1b4b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "~6.0|~7.0",
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpspec/phpspec": "^6.1",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TwitchApi\\": "src/",
+                    "NewTwitchApi\\": "src/NewTwitchApi",
+                    "NewTwitchApi\\Tests\\": "test/NewTwitchApi"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicholas Law",
+                    "homepage": "https://github.com/nicklaw5"
+                },
+                {
+                    "name": "Brian Zwahr",
+                    "homepage": "https://github.com/echosa"
+                },
+                {
+                    "name": "Brandin Arsenault",
+                    "homepage": "https://github.com/brandinarsenault"
+                }
+            ],
+            "description": "A Twitch API client for PHP.",
+            "homepage": "http://github.com/nicklaw5/twitch-api-php",
+            "keywords": [
+                "api",
+                "twitch",
+                "twitch-api",
+                "twitch-tv",
+                "twitch.tv"
+            ],
+            "support": {
+                "issues": "https://github.com/nicklaw5/twitch-api-php/issues",
+                "source": "https://github.com/nicklaw5/twitch-api-php/tree/v4.2.0"
+            },
+            "time": "2021-03-23T16:47:14+00:00"
         },
         {
             "name": "nikic/php-parser",
