@@ -5,7 +5,6 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\BooleanGroup;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -67,13 +66,16 @@ class Command extends Resource
                 ->sortable()->rules('required'),
             Textarea::make('Content')
                 ->rules('required')->alwaysShow()->hideFromIndex(),
-            Text::make('Content', function () {
+            Text::make('Content', 'content', function () {
                 return htmlspecialchars($this->content);
             })
                 ->sortable()->onlyOnIndex()->asHtml(),
             Boolean::make('Protected', 'is_protected')
-                ->help('Protected commands can be executed only by the bot owner'),
-            Items::make('Channels'),
+                ->help('Protected commands can be executed only by the bot owner')->sortable(),
+            Items::make('Channels')->hideFromIndex(),
+            Text::make('Channels', 'channels', function () {
+                return is_array($this->channels) ? implode(', ', $this->channels) : '-';
+            })->sortable()->asHtml()->onlyOnIndex(),
             BelongsTo::make('Bot', 'bot', Bot::class)->withoutTrashed(),
         ];
     }

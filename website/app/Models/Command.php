@@ -49,6 +49,9 @@ class Command extends Model
     {
         parent::boot();
         static::saving(function ($command) {
+            if ($command->channels) {
+                $command->channels = array_map('replaceWorking', $command->channels);
+            }
             $command->command = replaceWorking($command->command);
         });
     }
