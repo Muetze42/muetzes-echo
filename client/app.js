@@ -32,6 +32,7 @@ let botDisplayName = bot['name'];
 let botName = botDisplayName.toLowerCase();
 let getChannels = bot['channels'].replace(/[^a-zA-Z0-9_,]/g, "");
 let channels = getChannels.split(",");
+let prefix = bot['prefix'].toLowerCase();
 
 let opts = {
     identity: {
@@ -52,16 +53,20 @@ function onMessageHandler(target, context, msg, self) {
 
     const message = msg.trim();
     const lowerMsg = message.toLowerCase();
-    if (message.startsWith("µ") && context['user-id']==='279904718') {
-        let getCommand = lowerMsg.replace("µ", "").split(" ");
-        let command = getCommand[0];
+    if (message.startsWith(prefix)) {
+        let cmdLength = prefix.length;
+        let splitMessage = lowerMsg.substr(cmdLength).split(" ");
+        let command = splitMessage[0].toLowerCase();
+        let arg1 = splitMessage[1];
         let streamer = target.replace("#", "");
         if (command) {
             let getCommand = connection.query('SELECT * FROM commands WHERE command = ? AND (channels="[]" OR channels LIKE "%' + streamer + '%") LIMIT 1', [command])
             let cmd = getCommand[0];
             if (cmd) {
-                let output = cmd['content'].replace(/{name}/g, context['display-name']);
-                client.say(target, output);
+                if (cmd['is_protected']===0 || context['user-id']==='279904718') {
+                    let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1);
+                    client.say(target, output);
+                }
             }
         }
     }

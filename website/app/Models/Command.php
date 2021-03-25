@@ -18,8 +18,17 @@ class Command extends Model
     protected $fillable = [
         'command',
         'content',
-        'rights',
         'channels',
+        'is_protected',
+    ];
+
+    /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_protected' => true,
     ];
 
     /**
@@ -28,9 +37,21 @@ class Command extends Model
      * @var array
      */
     protected $casts = [
-        'rights'   => 'array',
         'channels' => 'array',
     ];
+
+    /**
+     * Bootstrap the model and its traits.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function ($command) {
+            $command->command = replaceWorking($command->command);
+        });
+    }
 
     /**
      * Get the bot of this command

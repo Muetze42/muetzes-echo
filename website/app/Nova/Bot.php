@@ -58,6 +58,7 @@ class Bot extends Resource
     {
         return [
             Text::make('Name')->sortable()->exceptOnForms(),
+            Text::make('Prefix')->sortable()->rules('required')->required(),
             Items::make(__('Channels to visit'), 'channels'),
         ];
     }

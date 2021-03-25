@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BooleanGroup;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -70,11 +71,8 @@ class Command extends Resource
                 return htmlspecialchars($this->content);
             })
                 ->sortable()->onlyOnIndex()->asHtml(),
-            BooleanGroup::make('Rights')->options([
-                'everyone' => __('Everyone'),
-                'mods'     => __('Mods'),
-                'admin'    => __('Admin'),
-            ]),
+            Boolean::make('Protected', 'is_protected')
+                ->help('Protected commands can be executed only by the bot owner'),
             Items::make('Channels'),
             BelongsTo::make('Bot', 'bot', Bot::class)->withoutTrashed(),
         ];

@@ -25,6 +25,7 @@ class Bot extends Model
         'refreshed_at',
         'channels',
         'user_id',
+        'prefix',
     ];
 
     /**
@@ -47,11 +48,14 @@ class Bot extends Model
         parent::boot();
         static::saving(function ($bot) {
             if ($bot->channels) {
-                $bot->channels = array_map('channelItems', $bot->channels);
+                $bot->channels = array_map('replaceWorking', $bot->channels);
             }
+            $bot->prefix = replaceWorking($bot->prefix);
         });
         static::updated(function ($bot) {
-            Artisan::call('bot:restart '.$bot->id);
+            if (auth()->check()) {
+                Artisan::call('bot:restart '.$bot->id);
+            }
         });
     }
 
