@@ -24,5 +24,6 @@ The app can be used in multiple channels and multiple bots, and the commands can
 * You can get Your Twitch id on https://hallo.tools/token
 * See and use the Laravel commands
 
-### Todo
-* Rights for commands
+### Database
+* Migrations: /website/database/migrations
+* Models: /website/app/Models

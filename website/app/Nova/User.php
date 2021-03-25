@@ -65,8 +65,8 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Bot attach url', function () {
-                return route('auth.bot', $this->token);
+            Text::make('Bot attach url', 'token', function () {
+                return $this->bot_link;
             })
                 ->onlyOnDetail(),
 

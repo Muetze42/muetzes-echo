@@ -40,6 +40,7 @@ class User extends Authenticatable
      */
     protected $appends= [
         'is_admin',
+        'bot_link',
     ];
 
     /**
@@ -70,6 +71,16 @@ class User extends Authenticatable
     {
         $admins = explode(',', config('user.admins'));
         return in_array($this->id, $admins);
+    }
+
+    /**
+     * User link to assign a (new) bot
+     *
+     * @return bool
+     */
+    public function getBotLinkAttribute()
+    {
+        return route('auth.bot', $this->token);
     }
 
     /**

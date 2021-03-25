@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Bot;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -49,7 +50,7 @@ class RestartBot extends Command
         $lines = explode("\n", $output);
 
         foreach ($lines as $line) {
-            if (str_contains($line, 'node app.js muetzes_echo_'.$id)) {
+            if (str_contains($line, 'node app.js start muetzes_echo_'.$id)) {
                 $pid = preg_split('/\s+/', $line)[1];
                 $array = explode(' ', $line);
                 $running_node = end($array);
@@ -60,14 +61,14 @@ class RestartBot extends Command
                 if (!$process->isSuccessful()) {
                     throw new ProcessFailedException($process);
                 }
-
-                $this->warn('Starting muetzes_echo_'.$id);
-                $process = Process::fromShellCommandline('cd '.config('services.node.npm_command').' muetzes_echo_'.$id.' > /dev/null 2>&1 &');
-                $process->run();
-                if (!$process->isSuccessful()) {
-                    throw new ProcessFailedException($process);
-                }
             }
+        }
+        $this->warn('Starting muetzes_echo_'.$id);
+        $process = Process::fromShellCommandline('cd '.config('services.node.npm_command').' muetzes_echo_'.$id.' > /dev/null 2>&1 &');
+        Log::debug('cd '.config('services.node.npm_command').' muetzes_echo_'.$id.' > /dev/null 2>&1 &');
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
         }
 
         return 0;
