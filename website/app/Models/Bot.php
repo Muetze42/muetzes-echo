@@ -53,9 +53,7 @@ class Bot extends Model
             $bot->prefix = replaceWorking($bot->prefix);
         });
         static::updated(function ($bot) {
-            if (auth()->check()) {
-                Artisan::call('bot:restart '.$bot->id);
-            }
+            Artisan::call('bot:restart ' . $bot->id);
         });
     }
 
