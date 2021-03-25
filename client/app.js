@@ -56,15 +56,17 @@ function onMessageHandler(target, context, msg, self) {
     if (message.startsWith(prefix)) {
         let cmdLength = prefix.length;
         let splitMessage = lowerMsg.substr(cmdLength).split(" ");
+        let splitMessage2 = message.substr(cmdLength).split(" ");
         let command = splitMessage[0].toLowerCase();
-        let arg1 = splitMessage[1];
+        let arg1 = splitMessage2[1];
+        let arg2 = splitMessage2[2];
         let streamer = target.replace("#", "");
         if (command) {
             let getCommand = connection.query('SELECT * FROM commands WHERE command = ? AND (channels="[]" OR channels LIKE "%' + streamer + '%") LIMIT 1', [command])
             let cmd = getCommand[0];
             if (cmd) {
                 if (cmd['is_protected']===0 || context['user-id']==='279904718') {
-                    let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1);
+                    let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1).replace(/{arg2}/g, arg2);
                     client.say(target, output);
                 }
             }
