@@ -62,7 +62,7 @@ function onMessageHandler(target, context, msg, self) {
         let arg2 = splitMessage2[2];
         let streamer = target.replace("#", "");
         if (command) {
-            let getCommand = connection.query('SELECT * FROM commands WHERE command = ? AND (channels="[]" OR channels LIKE "%' + streamer + '%") LIMIT 1', [command])
+            let getCommand = connection.query('SELECT * FROM commands WHERE deleted_at IS NULL AND command = ? AND (channels="[]" OR channels LIKE "%' + streamer + '%") LIMIT 1', [command])
             let cmd = getCommand[0];
             if (cmd) {
                 if (cmd['is_protected']===0 || context['user-id']==='279904718') {
