@@ -17,13 +17,12 @@ The app can be used in multiple channels and multiple bots, and the commands can
 * /client: Node.js script (bot client)
 * /website: Laravel framework (website)
 
-### Setup
-* Copy .env.example to .env and config
-* Optional: Change the „µ“ for the commands in the Node.js script
-* Change the website/database/seeders/UserSeeder.php and seed Your account or insert it manually in the database
-* You can get Your Twitch id on https://hallo.tools/token
-* See and use the Laravel commands
-
 ### Database
 * Migrations: /website/database/migrations
 * Models: /website/app/Models
+
+### Setup
+* Copy .env.example to .env and config
+* Change the website/database/seeders/UserSeeder.php and seed Your account or insert it manually in the database
+* You can get Your Twitch id on https://hallo.tools/token
+* See and use the Laravel commands
