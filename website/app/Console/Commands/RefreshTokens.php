@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Bot;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use TwitchApi\TwitchApi;
 
 class RefreshTokens extends Command
@@ -33,9 +34,11 @@ class RefreshTokens extends Command
      */
     public function handle()
     {
-        $time = now()->subHours(config('services.twitch.token_refresh', 4));
+        $time = now()->subHours(config('services.twitch.token_refresh', 2));
         $bots = Bot::where('refreshed_at', '<', $time)->get();
+        Log::debug('Start Refresh Token');
         foreach ($bots as $bot) {
+            Log::debug('Refresh: '.$bot->id);
             if (!$this->twitchApi) {
                 $options = [
                     'client_id'     => config('services.twitch.client_id'),
