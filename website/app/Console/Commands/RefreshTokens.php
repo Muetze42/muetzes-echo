@@ -36,9 +36,7 @@ class RefreshTokens extends Command
     {
         $time = now()->subHours(config('services.twitch.token_refresh', 2));
         $bots = Bot::where('refreshed_at', '<', $time)->get();
-        Log::debug('Start Refresh Token');
         foreach ($bots as $bot) {
-            Log::debug('Refresh: '.$bot->id);
             if (!$this->twitchApi) {
                 $options = [
                     'client_id'     => config('services.twitch.client_id'),
@@ -55,7 +53,7 @@ class RefreshTokens extends Command
                         'refresh_token' => $new['refresh_token'],
                         'refreshed_at'  => now(),
                     ]);
-                    sleep(0.5);
+                    sleep(1);
                     Artisan::call('bot:restart '.$bot->id);
                 }
             }

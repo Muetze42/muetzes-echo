@@ -51,13 +51,13 @@ function onMessageHandler(target, context, msg, self) {
         return;
     }
 
-    const message = msg.trim();
+    const message = msg.replace(/\s+/g, ' ').trim();
     const lowerMsg = message.toLowerCase();
     if (message.startsWith(prefix)) {
         let cmdLength = prefix.length;
         let splitMessage = lowerMsg.substr(cmdLength).split(" ");
         let splitMessage2 = message.substr(cmdLength).split(" ");
-        let command = splitMessage[0].toLowerCase();
+        let command = splitMessage[0] === '' && splitMessage[1] !=='' ? splitMessage[1].toLowerCase() : splitMessage[0].toLowerCase();
         let arg1 = splitMessage2[1];
         let arg2 = splitMessage2[2];
         let streamer = target.replace("#", "");
@@ -67,7 +67,7 @@ function onMessageHandler(target, context, msg, self) {
             if (cmd) {
                 if (cmd['is_protected']===0 || context['user-id']==='279904718') {
                     let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1).replace(/{arg2}/g, arg2);
-                    client.say(target, output);
+                    client.say(target, output.replace(/\s+/g, ' ').trim());
                 }
             }
         }
