@@ -37,11 +37,11 @@ The app can be used in multiple channels and multiple bots, and the commands can
 > Bots index
 > ![Bots index](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/bots-index.png)
 ---
-> Bots detail
+> Bots edit
 > ![Bots detail](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/bots-edit.png)
 ---
 > Commands index
 > ![Commands index](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/commands-index.png)
 ---
-> Commands detail
+> Commands edit
 > ![Commands detail](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/commands-edit.png)
