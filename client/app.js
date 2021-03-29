@@ -58,8 +58,8 @@ function onMessageHandler(target, context, msg, self) {
         let splitMessage = lowerMsg.substr(cmdLength).split(" ");
         let splitMessage2 = message.substr(cmdLength).split(" ");
         let command = splitMessage[0] === '' && splitMessage[1] !=='' ? splitMessage[1].toLowerCase() : splitMessage[0].toLowerCase();
-        let arg1 = splitMessage2[1];
-        let arg2 = splitMessage2[2];
+        let arg1 = splitMessage[0] === '' && splitMessage[1] !=='' ? splitMessage2[2] : splitMessage2[1];
+        let arg2 = splitMessage[0] === '' && splitMessage[1] !=='' ? splitMessage2[3] : splitMessage2[2];
         let streamer = target.replace("#", "");
         if (command) {
             let getCommand = connection.query('SELECT * FROM commands WHERE bot_id = ? AND deleted_at IS NULL AND command = ? AND (channels="[]" OR channels LIKE "%' + streamer + '%") LIMIT 1', [bot['id'], command])
