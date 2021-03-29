@@ -26,3 +26,22 @@ The app can be used in multiple channels and multiple bots, and the commands can
 * Change the website/database/seeders/UserSeeder.php and seed Your account or insert it manually in the database
 * You can get Your Twitch id on https://hallo.tools/token
 * See and use the Laravel commands
+
+### Screenshots
+> Users index
+> ![Users index](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/users-index.png)
+---
+> Users detail
+> ![Users detail](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/users-detail.png)
+---
+> Bots index
+> ![Bots index](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/bots-index.png)
+---
+> Bots detail
+> ![Bots detail](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/bots-edit.png)
+---
+> Commands index
+> ![Commands index](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/commands-index.png)
+---
+> Commands detail
+> ![Commands detail](https://raw.githubusercontent.com/Muetze42/media-storage/master/muetzes-echo/screenshots/commands-edit.png)

@@ -62,21 +62,25 @@ class Command extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Command')
-                ->sortable()->rules('required'),
-            Textarea::make('Content')
+            Text::make(__('Command'), 'command')
+                ->rules('required'),
+            Text::make(__('Run command'), 'command', function () {
+                return '<small>'.htmlspecialchars($this->bot->prefix.$this->command).'<br>'.htmlspecialchars($this->bot->prefix.' '.$this->command).'</small>';
+            })
+                ->sortable()->exceptOnForms()->asHtml(),
+            Textarea::make(__('Content'), 'content')
                 ->rules('required')->alwaysShow()->hideFromIndex(),
-            Text::make('Content', 'content', function () {
+            Text::make(__('Content'), 'content', function () {
                 return htmlspecialchars($this->content);
             })
                 ->sortable()->onlyOnIndex()->asHtml(),
-            Boolean::make('Protected', 'is_protected')
-                ->help('Protected commands can be executed only by the bot owner')->sortable(),
-            Items::make('Channels')->hideFromIndex(),
-            Text::make('Channels', 'channels', function () {
+            Boolean::make(__('Protected'), 'is_protected')
+                ->help(__('Protected commands can be executed only by the bot owner'))->sortable(),
+            Items::make(__('Channels'), 'channels')->hideFromIndex(),
+            Text::make(__('Channels'), 'channels', function () {
                 return is_array($this->channels) ? implode(', ', $this->channels) : '-';
             })->sortable()->asHtml()->onlyOnIndex(),
-            BelongsTo::make('Bot', 'bot', Bot::class)->withoutTrashed(),
+            BelongsTo::make(__('Bot'), 'bot', Bot::class)->withoutTrashed(),
         ];
     }
 
