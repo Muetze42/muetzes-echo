@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Bot;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -65,7 +64,6 @@ class RestartBot extends Command
         }
         $this->warn('Starting muetzes_echo_'.$id);
         $process = Process::fromShellCommandline('cd '.config('services.node.npm_command').' muetzes_echo_'.$id.' > /dev/null 2>&1 &');
-        Log::debug('cd '.config('services.node.npm_command').' muetzes_echo_'.$id.' > /dev/null 2>&1 &');
         $process->run();
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);

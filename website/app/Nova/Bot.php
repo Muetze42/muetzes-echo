@@ -3,9 +3,11 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaItemsField\Items;
+use App\Nova\Filters\BotUser;
 
 class Bot extends Resource
 {
@@ -60,6 +62,8 @@ class Bot extends Resource
             Text::make('Name')->sortable()->exceptOnForms(),
             Text::make('Prefix')->sortable()->rules('required')->required(),
             Items::make(__('Channels to visit'), 'channels'),
+            BelongsTo::make(__('User'), 'user', User::class)
+                ->withoutTrashed()->sortable(),
         ];
     }
 
@@ -82,7 +86,11 @@ class Bot extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new BotUser)->canSee(function () use ($request) {
+                return $request->user()->is_admin;
+            }),
+        ];
     }
 
     /**

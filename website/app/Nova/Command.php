@@ -9,6 +9,9 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use NovaItemsField\Items;
+use App\Nova\Filters\CommandBot;
+use App\Nova\Filters\CommandProtected;
+use App\Nova\Actions\CommandProtected as CommandIsProtected;
 
 class Command extends Resource
 {
@@ -63,7 +66,7 @@ class Command extends Resource
     {
         return [
             Text::make(__('Command'), 'command')
-                ->rules('required'),
+                ->sortable()->rules('required'),
             Text::make(__('Run command'), 'command', function () {
                 return '<small>'.htmlspecialchars($this->bot->prefix.$this->command).'<br>'.htmlspecialchars($this->bot->prefix.' '.$this->command).'</small>';
             })
@@ -80,7 +83,8 @@ class Command extends Resource
             Text::make(__('Channels'), 'channels', function () {
                 return is_array($this->channels) ? implode(', ', $this->channels) : '-';
             })->sortable()->asHtml()->onlyOnIndex(),
-            BelongsTo::make(__('Bot'), 'bot', Bot::class)->withoutTrashed(),
+            BelongsTo::make(__('Bot'), 'bot', Bot::class)
+                ->withoutTrashed()->sortable(),
         ];
     }
 
@@ -103,7 +107,10 @@ class Command extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new CommandBot,
+            new CommandProtected,
+        ];
     }
 
     /**
@@ -125,6 +132,8 @@ class Command extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new CommandIsProtected,
+        ];
     }
 }

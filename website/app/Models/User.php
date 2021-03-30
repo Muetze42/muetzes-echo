@@ -26,11 +26,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id',
         'name',
-        'display_name',
-        'avatar',
         'email',
+        'avatar',
+        'token',
+        'email_verified_at',
     ];
 
     /**
@@ -39,7 +39,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends= [
-        'is_admin',
         'bot_link',
     ];
 
@@ -50,6 +49,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'token',
         'remember_token',
     ];
 
@@ -61,17 +61,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Check if this user is admin
-     *
-     * @return bool
-     */
-    public function getIsAdminAttribute()
-    {
-        $admins = explode(',', config('user.admins'));
-        return in_array($this->id, $admins);
-    }
 
     /**
      * User link to assign a (new) bot
