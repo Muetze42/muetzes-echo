@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Bot;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 use TwitchApi\TwitchApi;
 
 class RefreshTokens extends Command

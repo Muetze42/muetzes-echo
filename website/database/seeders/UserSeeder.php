@@ -15,9 +15,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'id'           => 279904718,
-            'name'         => 'muetzefpc',
-            'email'        => 'example@huth.it',
+            'id'       => 279904718,
+            'name'     => 'muetzefpc',
+            'email'    => 'example@huth.it',
+            'is_admin' => true,
         ]);
     }
 }

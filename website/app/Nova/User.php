@@ -3,9 +3,12 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Filters\UserHasBot;
+use App\Nova\Actions\UserToken;
 
 class User extends Resource
 {
@@ -65,6 +68,11 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
+            Boolean::make(__('Admin'), 'is_admin')
+                ->exceptOnForms()->canSee(function () use ($request) {
+                    return $request->user()->is_admin;
+                }),
+
             Text::make('Bot attach url', 'token', function () {
                 return $this->bot_link;
             })
@@ -95,7 +103,11 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new UserHasBot)->canSee(function () use ($request) {
+                return $request->user()->is_admin;
+            }),
+        ];
     }
 
     /**
@@ -117,6 +129,8 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new UserToken),
+        ];
     }
 }

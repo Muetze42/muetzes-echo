@@ -11,24 +11,21 @@ class Command extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'command',
-        'content',
-        'channels',
-        'is_protected',
-    ];
-
-    /**
      * The model's attributes.
      *
      * @var array
      */
     protected $attributes = [
         'is_protected' => true,
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'is_protected',
     ];
 
     /**

@@ -46,7 +46,7 @@ const client = new tmi.client(opts);
 client.on('connected', onConnectedHandler);
 client.on('message', onMessageHandler);
 
-function onMessageHandler(target, context, msg, self) {
+function onMessageHandler(target, context, msg, self, channel) {
     if (self) {
         return;
     }
@@ -66,7 +66,7 @@ function onMessageHandler(target, context, msg, self) {
             let cmd = getCommand[0];
             if (cmd) {
                 if (cmd['is_protected']===0 || context['user-id']==='279904718') {
-                    let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1).replace(/{arg2}/g, arg2);
+                    let output = cmd['content'].replace(/{name}/g, context['display-name']).replace(/{arg1}/g, arg1).replace(/{arg2}/g, arg2).replace(/{channel}/g, channel);
                     client.say(target, output.replace(/\s+/g, ' ').trim());
                 }
             }

@@ -13,6 +13,16 @@ class Bot extends Model
     use HasFactory, SoftDeletes;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'channels'     => 'array',
+        'refreshed_at' => 'datetime',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -23,19 +33,7 @@ class Bot extends Model
         'token',
         'refresh_token',
         'refreshed_at',
-        'channels',
         'user_id',
-        'prefix',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'channels'     => 'array',
-        'refreshed_at' => 'datetime',
     ];
 
     /**
@@ -62,7 +60,7 @@ class Bot extends Model
      */
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

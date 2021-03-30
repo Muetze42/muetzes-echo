@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('id')->primary();
             $table->string('name');
             $table->string('avatar')->nullable();
-            $table->string('token');
+            $table->string('token')->unique();
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
