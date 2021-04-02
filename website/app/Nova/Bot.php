@@ -63,7 +63,9 @@ class Bot extends Resource
             Text::make('Prefix')->sortable()->rules('required')->required(),
             Items::make(__('Channels to visit'), 'channels'),
             BelongsTo::make(__('User'), 'user', User::class)
-                ->withoutTrashed()->sortable(),
+                ->withoutTrashed()->sortable()->canSee(function () use ($request) {
+                    return $request->user()->is_admin;
+                }),
         ];
     }
 
