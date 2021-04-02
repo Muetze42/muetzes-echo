@@ -36,7 +36,7 @@ class CommandBot extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        return $query;
+        return $query->where('bot_id', $value);
     }
 
     /**
